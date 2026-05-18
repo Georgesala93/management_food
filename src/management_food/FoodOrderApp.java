@@ -265,4 +265,33 @@ public class FoodOrderApp extends JFrame {
         orders.add(order);
         orderTableModel.addRow(new Object[]{order.getId(), order.getDishName(), order.getCategory(), order.getQuantity(), order.getDeliveryMethod(), order.getAddress()});
     }
+
+    /**
+     * Exporta los pedidos a un archivo en UTF-8 para evitar problemas de codificación en la consola.
+     * @param path ruta del fichero a escribir
+     */
+    public void exportOrdersToFile(String path) {
+        StringBuilder sb = new StringBuilder();
+        if (orders.isEmpty()) {
+            sb.append("[EXPORTACIÓN] No hay pedidos para exportar.\n");
+        } else {
+            sb.append("===== EXPORTACIÓN DE PEDIDOS =====\n");
+            for (Order order : orders) {
+                sb.append("Pedido #").append(order.getId()).append("\n");
+                sb.append("  Plato: ").append(order.getDishName()).append("\n");
+                sb.append("  Categoría: ").append(order.getCategory()).append("\n");
+                sb.append("  Cantidad: ").append(order.getQuantity()).append("\n");
+                sb.append("  Método de Entrega: ").append(order.getDeliveryMethod()).append("\n");
+                sb.append("  Dirección: ").append(order.getDeliveryMethod().equals("Domicilio") ? order.getAddress() : "N/A").append("\n");
+                sb.append("--------------------------------\n");
+            }
+        }
+        try {
+            java.nio.file.Files.createDirectories(java.nio.file.Paths.get(path).getParent());
+            java.nio.file.Files.write(java.nio.file.Paths.get(path), sb.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            JOptionPane.showMessageDialog(this, "Pedidos exportados a archivo: " + path, "Exportación", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al exportar a archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

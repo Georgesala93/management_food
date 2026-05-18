@@ -19,13 +19,14 @@ Proyecto Java Swing para la gestión de pedidos de alimentos.
 1. Abre una terminal en la carpeta `management_food`.
 2. Compila el proyecto:
 
-```powershell
-javac -d out src\management_food\*.java
+```cmd
+chcp 65001 
+javac -encoding UTF-8 -d out src\management_food\*.java
 ```
 
 3. Ejecuta la aplicación:
 
-```powershell
+```cmd
 java -cp out management_food.Main
 ```
 
@@ -33,7 +34,7 @@ java -cp out management_food.Main
 
 Después de compilar, ejecuta:
 
-```powershell
+```cmd
 java -cp out management_food.TestRunner
 ```
 
