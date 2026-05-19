@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="management_food" default="jar" basedir=".">
     <import file="nbproject/build-impl.xml"/>
+
+    <property name="run.single.class" value="${run.class}"/>
+    <condition property="run.single.class" value="${main.class}">
+        <not>
+            <isset property="run.class"/>
+        </not>
+    </condition>
+
+    <target name="run-single" depends="compile">
+        <java classname="${run.single.class}" classpath="${run.classpath}" fork="true"/>
+    </target>
 </project>
